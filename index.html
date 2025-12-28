@@ -9,144 +9,46 @@
   <body>
     <div class="card">
       <div class="search">
-        <input type="text" placeholder="Enter the city" spellcheck="false" />
-        <button><img src="search.png" alt="Search" /></button>
+        <input
+          type="text"
+          placeholder="Enter the city"
+          spellcheck="false"
+          aria-label="City name"
+        />
+        <button type="button">
+          <img src="images/search.png" alt="Search" />
+        </button>
       </div>
+
       <div class="error" style="display: none">
         <p>Invalid city name</p>
       </div>
+
       <div class="weather" style="display: none">
-        <img src="rain.png" class="icon" alt="Weather Icon" />
-        <h1 class="temp">33°C</h1>
-        <h2 class="city">Delhi</h2>
+        <img src="images/rain.png" class="icon" alt="Weather Icon" />
+        <h1 class="temp"></h1>
+        <h2 class="city"></h2>
+
         <div class="details">
           <div class="col">
-            <img src="humidity.png" alt="Humidity" />
+            <img src="images/humidity.png" alt="Humidity" />
             <div>
-              <p class="humidity">50%</p>
+              <p class="humidity"></p>
               <p>Humidity</p>
             </div>
           </div>
+
           <div class="col">
-            <img src="wind.png" alt="Wind Speed" />
+            <img src="images/wind.png" alt="Wind Speed" />
             <div>
-              <p class="wind">150 km/h</p>
+              <p class="wind"></p>
               <p>Wind Speed</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-    <script>
-      const apikey = "18d510a44dmsh7e8960491bf88e1p18ead4jsnbf0b22fff27f"; 
-      const apiHost = "weatherapi-com.p.rapidapi.com";
 
-      const searchbox = document.querySelector(".search input");
-      const searchbtn = document.querySelector(".search button");
-      const weathericon = document.querySelector(".icon");
-
-      const conditionMap = {
-        1000: "sun.png", 
-        1003: "partlycloudy.png", 
-        1006: "cloudy.png", 
-        1009: "cloudy.png", 
-        1030: "mist.png", 
-        1063: "rain.png", 
-        1066: "snow.png", 
-        1069: "sleet.png", 
-        1072: "freezingdrizzle.png", 
-        1087: "thunderstorm.png", 
-        1114: "snow.png",
-        1117: "blizzard.png",
-        1135: "fog.png", 
-        1147: "fog.png", 
-        1150: "freezingdrizzle.png", 
-        1153: "freezingdrizzle.png", 
-        1168: "freezingdrizzle.png", 
-        1171: "freezingdrizzle.png", 
-        1180: "rain.png", 
-        1183: "rain.png", 
-        1186: "rain.png", 
-        1189: "rain.png",
-        1192: "heavyrain.png",
-        1195: "heavyrain.png",
-        1198: "freezingrain.png",
-        1201: "freezingrain.png",
-        1204: "sleet.png",
-        1207: "sleet.png",
-        1210: "snow.png",
-        1213: "snow.png",
-        1216: "snow.png",
-        1219: "snow.png",
-        1222: "heavysnow.png",
-        1225: "heavysnow.png",
-        1237: "heavysnow.png",
-        1240: "showerrain.png",
-        1243: "showerrain.png",
-        1246: "showerrain.png",
-        1249: "sleet.png",
-        1252: "sleet.png",
-        1255: "showersnow.png",
-        1258: "showersnow.png",
-        1261: "showersnow.png",
-        1264: "showersnow.png",
-        1273: "thunderstorm.png",
-        1276: "thunderstorm.png",
-        1279: "thunderstorm.png",
-        1282: "thunderstorm.png",
-      };
-
-      async function checkWeather(city) {
-        try {
-          console.log(`Checking weather for city: ${city}`);
-          const url = `https://${apiHost}/current.json?q=${city}`;
-          const options = {
-            method: "GET",
-            headers: {
-              "X-RapidAPI-Key": apikey,
-              "X-RapidAPI-Host": apiHost,
-            },
-          };
-
-          const response = await fetch(url, options);
-          console.log(`API response status: ${response.status}`);
-
-          if (!response.ok) {
-            throw new Error("City not found");
-          }
-
-          const data = await response.json();
-          console.log(data);
-
-          document.querySelector(".city").textContent = data.location.name;
-          document.querySelector(".temp").textContent =
-            data.current.temp_c + "°C";
-          document.querySelector(".humidity").textContent =
-            data.current.humidity + "%";
-          document.querySelector(".wind").textContent =
-            data.current.wind_kph + " km/h";
-
-          const conditionCode = data.current.condition.code;
-          weathericon.src = conditionMap[conditionCode] || "default.png";
-
-          document.querySelector(".error").style.display = "none";
-          document.querySelector(".weather").style.display = "block";
-        } catch (error) {
-          console.error(error);
-          document.querySelector(".error").style.display = "block";
-          document.querySelector(".weather").style.display = "none";
-        }
-      }
-
-      searchbtn.addEventListener("click", () => {
-        checkWeather(searchbox.value.trim());
-      });
-
-      searchbox.addEventListener("keypress", (event) => {
-        if (event.key === "Enter") {
-          checkWeather(searchbox.value.trim());
-        }
-      });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
